@@ -2,12 +2,12 @@
 
 const API_URL = "https://api.github.com/users/";
 
-// Tangkap elemen DOM
+// DOM
 const main = document.getElementById("main");
 const inputForm = document.getElementById("userInput");
 const inputBox = document.getElementById("inputBox");
 
-// 1. Fungsi Utama: Ambil Data User dari GitHub
+// fetch profile
 const userGetFunction = async (username) => {
     try {
         const response = await fetch(API_URL + username);
@@ -28,7 +28,7 @@ const userGetFunction = async (username) => {
     }
 };
 
-// 2. Ambil Data Repositori Terbaru
+// fetch repo
 const repoGetFunction = async (username) => {
     try {
         const response = await fetch(`${API_URL}${username}/repos?sort=created&per_page=5`);
@@ -45,7 +45,7 @@ const repoGetFunction = async (username) => {
     }
 };
 
-// 3. Render Kartu Profil User
+// render profile card
 const userCard = (user) => {
     const id = user.name || user.login;
     const info = user.bio ? `<p>${escapeHTML(user.bio)}</p>` : "";
@@ -70,24 +70,24 @@ const userCard = (user) => {
     main.innerHTML = cardElement;
 };
 
-// 4. Render Daftar Link Repositori (Maksimal 5)
+// render 5 repo
 const repoCardFunction = (repos) => {
     const reposElement = document.getElementById("repos");
-    reposElement.innerHTML = ""; // Bersihkan kontainer sebelum menambah link
+    reposElement.innerHTML = ""; // clear container
 
     repos.forEach((repo) => {
         const repoEl = document.createElement("a");
         repoEl.classList.add("repo");
         repoEl.href = repo.html_url;
         repoEl.target = "_blank";
-        repoEl.rel = "noopener noreferrer"; // Keamanan tambahan untuk tab baru
+        repoEl.rel = "noopener noreferrer"; // security new tab
         repoEl.innerText = repo.name;
         
         reposElement.appendChild(repoEl);
     });
 };
 
-// 5. Tampilan jika Terjadi Eror
+// if error
 const errorFunction = (message) => {
     const cardHTML = `
         <div class="card">
@@ -97,7 +97,7 @@ const errorFunction = (message) => {
     main.innerHTML = cardHTML;
 };
 
-// Helper kecil untuk mencegah XSS (keamanan input/output)
+// xss helper
 const escapeHTML = (str) => {
     if (!str) return "";
     return str.replace(/[&<>'"]/g, 
@@ -105,7 +105,7 @@ const escapeHTML = (str) => {
     );
 };
 
-// Event Listener pada Form Submit
+// event listener
 inputForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const username = inputBox.value.trim();

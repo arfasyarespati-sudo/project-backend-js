@@ -12,3 +12,6 @@ const server = http.createServer((req, res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+
+const fs = require('fs');
+fs.writeFileSync('hello.txt', 'how are you?');

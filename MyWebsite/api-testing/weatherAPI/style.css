@@ -10,6 +10,9 @@
   display: none;
 }
 
+.err {
+  display: none;
+}
 
 body {
   background: #0b0f19;
