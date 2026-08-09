@@ -12,5 +12,6 @@ function getTasks() {
   return JSON.parse(data);
 }
 
-const tasks = getTasks();
-console.log(tasks);
+function saveTasks(tasks) {
+  fs.writeFileSync(FILE_PATH, JSON.stringify(task, null, 2));
+}
