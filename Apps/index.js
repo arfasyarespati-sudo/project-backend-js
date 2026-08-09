@@ -13,5 +13,5 @@ function getTasks() {
 }
 
 function saveTasks(tasks) {
-  fs.writeFileSync(FILE_PATH, JSON.stringify(task, null, 2));
+  fs.writeFileSync(FILE_PATH, JSON.stringify(tasks, null, 2));
 }
