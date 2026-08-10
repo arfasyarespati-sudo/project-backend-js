@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": 1,
+    "desc": "Learn JS",
+    "status": "todo",
+    "createdAt": "2026-08-10T05:08:37.479Z",
+    "updatedAt": "2026-08-10T05:08:37.481Z"
+  },
+  {
+    "id": 2,
+    "desc": "Playing Soccer",
+    "status": "todo",
+    "createdAt": "2026-08-10T08:24:09.671Z",
+    "updatedAt": "2026-08-10T08:24:09.673Z"
+  },
+  {
+    "id": 3,
+    "desc": "Drink coffee",
+    "status": "todo",
+    "createdAt": "2026-08-10T08:24:09.677Z",
+    "updatedAt": "2026-08-10T08:24:09.677Z"
+  }
+]
