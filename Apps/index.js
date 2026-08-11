@@ -1,4 +1,5 @@
-console.log('Hello World!\n');
+#!/usr/bin/env node
+
 const fs = require('fs');
 const path = require('path');
 
@@ -51,8 +52,9 @@ function deleteTask(id) {
   tasks = tasks.filter(t => t.id !== parseInt(id));
 
   if (tasks.length < initialLength) {
-    saveTasks(tasks);
+      saveTasks(tasks);
       console.log(`Task (ID: ${id}) has been deleted successfully!`);
+
   } else {
       console.log(`Task (ID: ${id} is not found.)`);
   }
@@ -76,7 +78,7 @@ function showList(filterStatus) {
   const tasks = getTasks();
   let filteredTasks = tasks;
 
-  if (filterstatus) {
+  if (filterStatus) {
     filteredTasks = tasks.filter(t => t.status === filterStatus);
   }
 
@@ -88,9 +90,42 @@ function showList(filterStatus) {
   console.log("ID | Status | Description | Created At");
   console.log("-------------------------------------------------");
     filteredTasks.forEach(t => {
-        console.log(`${t.id} | [${t.status}] | ${t.description} | ${t.createdAt}`);
+        console.log(`${t.id} | [${t.status}] | ${t.desc} | ${t.createdAt}`);
     });
 }
 
-showList
+const args = process.argv.slice(2);
+const command = args[0];
+
+switch (command) {
+    case 'add':
+        if (!args[1]) return console.log("Error: Task description is required.");
+        addTask(args[1]);
+        break;
+    case 'update':
+        if (!args[1] || !args[2]) return console.log("Error: Task ID and new description are required.");
+        updateTask(args[1], args[2]);
+        break;
+    case 'delete':
+        if (!args[1]) return console.log("Error: Task ID is required.");
+        deleteTask(args[1]);
+        break;
+    case 'mark-in-progress':
+        if (!args[1]) return console.log("Error: Task ID is required.");
+        updateStatus(args[1], 'in-progress');
+        break;
+    case 'mark-done':
+        if (!args[1]) return console.log("Error: Task ID is required.");
+        updateStatus(args[1], 'done');
+        break;
+    case 'list':
+        showList(args[1]); // args[1] bisa 'done', 'todo', 'in-progress', atau undefined
+        break;
+    default:
+        console.log("Invalid command. Available commands: add, update, delete, mark-in-progress, mark-done, list");
+}
+
+
+
+
 
