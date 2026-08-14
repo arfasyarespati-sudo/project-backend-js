@@ -87,10 +87,10 @@ function showList(filterStatus) {
     return;
   }
 
-  console.log("ID | Status | Description | Created At");
+  console.log("No |ID | Status | Description | Created At");
   console.log("-------------------------------------------------");
-    filteredTasks.forEach(t => {
-        console.log(`${t.id} | [${t.status}] | ${t.desc} | ${t.createdAt}`);
+    filteredTasks.forEach((t, index) => {
+        console.log(`${index + 1} | ${t.id} | [${t.status}] | ${t.desc} | ${t.createdAt}`);
     });
 }
 
@@ -119,7 +119,7 @@ switch (command) {
         updateStatus(args[1], 'done');
         break;
     case 'list':
-        showList(args[1]); // args[1] bisa 'done', 'todo', 'in-progress', atau undefined
+        showList(args[1]); // args[1] bisa 'done', 'todo', 'in-progress', or undefined
         break;
     default:
         console.log("Invalid command. Available commands: add, update, delete, mark-in-progress, mark-done, list");
