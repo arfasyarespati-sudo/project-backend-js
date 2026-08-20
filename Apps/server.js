@@ -1,20 +1,49 @@
+const cors = require('cors')
 const express = require('express');
-const port = 3000;
 const app = express();
-const bcrypt = require('brcypt');
+const port = 3000;
 
-app.use(express.json());
+app.use(cors({
+    origin: ['http://localhost:3000', 'http://127.0.0.1:3000']
+}))
 
-let users = [];
-let notes = [];
+app.get('/', (req, res) => {
+    res.send('hello from express')
+})
 
-const requireAuth = (req, res, next) => {
-    const { username } = req.headers;
-    const userExists = user.find(u => u.username === username);
+app.get('/about', (req, res) => {
+    res.send('this is the about page')
+})
 
-    if (!userExists) {
-        return res.status(401).json({ message: 'Unauthorized. Please register or login first'})
-    }
-    req.currentuser
-}
+app.get('/contact', (req, res) => {
+    res.send('this is the contact page')
+})
+
+app.get('/products', (req, res) => {
+    res.json([
+        { id: 1, name: 'Laptop', price: 1000 },
+        { id: 2, name: 'Mouse', price: 300 }
+    ])
+})
+
+app.get('/products/:id', (req, res) => {
+    const id = Number((req.params.id))
+
+    const products = [
+        { id: 1, name: 'Laptop', price: 1000 },
+        { id: 2, name: 'Mouse', price: 300 }
+    ]
+    const reqProduct = products.find((product) => product.id === id)
+    res.json(reqProduct)
+})
+
+app.get('/message', (req, res) => {
+    res.json({ message: "Hello from your backend"})
+})
+
+app.listen(port, () => {
+    console.log(`server is running at http://localhost:${port}/`)
+})
+
+
 
