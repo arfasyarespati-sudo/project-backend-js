@@ -3,9 +3,12 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-app.use(cors({
-    origin: ['http://localhost:3000', 'http://127.0.0.1:3000']
-}))
+app.use(cors())
+
+app.use(express.json())
+
+
+
 
 app.get('/', (req, res) => {
     res.send('hello from express')
@@ -39,6 +42,13 @@ app.get('/products/:id', (req, res) => {
 
 app.get('/message', (req, res) => {
     res.json({ message: "Hello from your backend"})
+})
+
+app.post('/message', (req, res) => {
+    const { name, message } = req.body
+
+    console.log('New message: ', name, message)
+    res.json({ message: 'Thankyou for your message!'})
 })
 
 app.listen(port, () => {
