@@ -1,5 +1,6 @@
 const cors = require('cors')
 const express = require('express');
+const productRouter = require('./products')
 const app = express();
 const port = 3000;
 
@@ -7,8 +8,7 @@ app.use(cors())
 
 app.use(express.json())
 
-
-
+app.use('/products', productsRouter)
 
 app.get('/', (req, res) => {
     res.send('hello from express')
@@ -20,24 +20,6 @@ app.get('/about', (req, res) => {
 
 app.get('/contact', (req, res) => {
     res.send('this is the contact page')
-})
-
-app.get('/products', (req, res) => {
-    res.json([
-        { id: 1, name: 'Laptop', price: 1000 },
-        { id: 2, name: 'Mouse', price: 300 }
-    ])
-})
-
-app.get('/products/:id', (req, res) => {
-    const id = Number((req.params.id))
-
-    const products = [
-        { id: 1, name: 'Laptop', price: 1000 },
-        { id: 2, name: 'Mouse', price: 300 }
-    ]
-    const reqProduct = products.find((product) => product.id === id)
-    res.json(reqProduct)
 })
 
 app.get('/message', (req, res) => {
