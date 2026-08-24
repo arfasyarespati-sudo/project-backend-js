@@ -8,6 +8,14 @@ router.get('/', (req, res) => {
     ])
 })
 
+router.get('/special', (req, res) => {
+    const specialProduct = {
+        name: 'Javascript course',
+        price: 999
+    }
+    res.json(specialProduct)
+})
+
 router.get('/:id', (req, res) => {
     const id = Number((req.params.id))
 
@@ -18,6 +26,8 @@ router.get('/:id', (req, res) => {
     const reqProduct = products.find((product) => product.id === id)
     res.json(reqProduct)
 })
+
+
 
 router.post('/', (req, res) => {
     const { name, price } = req.body
