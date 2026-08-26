@@ -27,8 +27,6 @@ router.get('/:id', (req, res) => {
     res.json(reqProduct)
 })
 
-
-
 router.post('/', (req, res) => {
     const { name, price } = req.body
     const newProduct = {
