@@ -1,14 +1,7 @@
-const express = require('express');
-const PORT = 3000;
-const app = express();
+const prices = [4, 8, 15, 16, 23, 42];
 
-app.post('/', (req, res) => {
-    res.send('POST request called')
+let discountPrice = prices.map((n) => {
+   return n * 0.5;
 })
 
-app.listen(PORT, function(err) {
-    if (err) {
-        console.log(err);
-        console.log(`Listening on PORT ${PORT}`)
-    }
-})
+console.log(discountPrice)

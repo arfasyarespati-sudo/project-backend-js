@@ -1,5 +1,5 @@
 const storeName = 'TechHub Store'
-let openStatus = 'open'
+let openStatus = 'Open'
 
 const storeConfig = { //object literal (non-initialization)
     currency: 'IDR',
@@ -34,7 +34,7 @@ const applyDiscount = (price, code) => {
 const availableStock = inventory.filter((product) => product.stock > 0)       //grab item ready stock
 const getProductId = (id) => inventory.find((product) => (product.id === id)) //search item from id
 
-const catalogSum = inventory.map(({ name, price, stock }) => {
+const catalogSum = inventory.map(({ name, price, stock }) => { 
   const status = stock > 0 ? `unit: ${stock}` : `empty`;
   return `${name} - ${formatCurrency(price)} (${status})`
 })
@@ -52,3 +52,11 @@ const updatedInventory = {
   lastUpdated: "2026-08-28"
 }
 
+function processOrder({ orderId, customer, items, discountCode }) {
+  const orderDetails = items.map((itemId) => getProductId(itemId)).filter(Boolean)
+  const subtotal = orderDetails.reduce((accumulator, item) => accumulator + item.price, 0);
+
+  const subtotalAfterDiscount = applyDiscount(subtotal, discountCode);
+  const tax = calculateTax(subtotalAfterDiscount);
+  const grandTotal = subtotalAfterDiscount + tax;
+}
