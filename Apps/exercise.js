@@ -59,4 +59,38 @@ function processOrder({ orderId, customer, items, discountCode }) {
   const subtotalAfterDiscount = applyDiscount(subtotal, discountCode);
   const tax = calculateTax(subtotalAfterDiscount);
   const grandTotal = subtotalAfterDiscount + tax;
+
+  console.log(`\n========================================`);
+  console.log(`INVOICE: ${orderId} | CUSTOMER: ${customer}`);
+  console.log(`Status Toko: ${openStatus} (${storeName})`);
+  console.log(`----------------------------------------`);
+  
+  // .forEach(): Render baris item belanja
+  orderDetails.forEach(({ name, price }, index) => {
+    console.log(`${index + 1}. ${name} -> ${formatCurrency(price)}`);
+  });
+
+  console.log(`----------------------------------------`);
+  console.log(`Subtotal       : ${formatCurrency(subtotal)}`);
+  if (discountCode) {
+    console.log(`Diskon (${discountCode}): -${formatCurrency(subtotal - subtotalAfterDiscount)}`);
+  }
+  console.log(`PPN (11%)      : ${formatCurrency(tax)}`);
+  console.log(`Grand Total    : ${formatCurrency(grandTotal)}`);
+  console.log(`========================================\n`);
+
+  return grandTotal;
 }
+
+console.log("\n=== DAFTAR KATALOG ===");
+catalogSum.forEach((item) => console.log(`* ${item}`));
+
+// Memproses semua transaksi dan menghitung total omset toko
+let totalRevenue = 0;
+
+for (const order of customerOrders) {
+  const orderTotal = processOrder(order);
+  totalRevenue += orderTotal;
+}
+
+console.log(`TOTAL PENDAPATAN HARIAN: ${formatCurrency(totalRevenue)}`);
