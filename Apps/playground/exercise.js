@@ -31,8 +31,8 @@ const applyDiscount = (price, code) => {
   return price;
 }
 
-const availableStock = inventory.filter((product) => product.stock > 0)       //grab item ready stock
-const getProductId = (id) => inventory.find((product) => (product.id === id)) //search item from id
+const availableStock = inventory.filter((product) => product.stock > 0)       
+const getProductId = (id) => inventory.find((product) => (product.id === id)) 
 
 const catalogSum = inventory.map(({ name, price, stock }) => { 
   const status = stock > 0 ? `unit: ${stock}` : `empty`;
