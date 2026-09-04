@@ -82,10 +82,21 @@ function processOrder({ orderId, customer, items, discountCode }) {
   return grandTotal;
 }
 
+function buyOrder({ id, stock }){
+  const targetProduct = inventory.find((item) => item.id === id);
+   if (!targetProduct) {
+    console.log('item not found!');
+    return;
+   }
+   if (targetProduct.stock > stock) {
+    console.log(`stock not enough! Current stock: ${targetProduct.stock}, request: ${stock}`)
+    return;
+   }
+}
+
 console.log("\n=== DAFTAR KATALOG ===");
 catalogSum.forEach((item) => console.log(`* ${item}`));
 
-// Memproses semua transaksi dan menghitung total omset toko
 let totalRevenue = 0;
 
 for (const order of customerOrders) {
